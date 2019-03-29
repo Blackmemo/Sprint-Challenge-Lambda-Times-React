@@ -56,30 +56,45 @@ export default class Carousel extends Component {
     super(props);
     this.state = {
 
+      images: [],
+      index: 0
     }
   }
   componentDidMount(){
-
+this.setState({
+  images: carouselData
+});
   }
 
   leftClick = () => {
-
-  }
+this.setState({
+  index: this.state.index < this.state.images.length - 1 ? this.state.index + 1 : 0
+})
+  };
 
   rightClick = () => {
-
+this.setState({
+  index: this.state.index > 0 ? this.state.index - 1 : this.state.images.length -1
+});
   }
 
   selectedImage = () => {
-    return <img src={} style={{display: 'block'}} />
-  }
+    return (
+<CarouselImg
+src={this.state.images[this.state.index]}
+style={{ display: 'block'}}
+alt=''
+/>
+    );
+  };
   
   render(){
     return (
       <CarouselStyle>
         <CarouselButtons left onClick={this.leftClick}>{"<"}</CarouselButtons>
+        <this.selectedImage />
         <CarouselButtons onClick={this.rightClick}>{">"}</CarouselButtons>
       </CarouselStyle>
-    )
+    );
   }
 }
